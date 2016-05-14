@@ -27,5 +27,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/User/.m2/repository/com/microsoft/sql/sqljdbc/4.2.42/sqljdbc-4.2.42.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
