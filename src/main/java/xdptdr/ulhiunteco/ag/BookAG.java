@@ -1,12 +1,11 @@
-package xdptdr.ulhiunteco.ae;
+package xdptdr.ulhiunteco.ag;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,7 +14,7 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Table(name = "Book")
-public class BookAE {
+public class BookAG {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,15 +24,14 @@ public class BookAE {
 	@Column(name = "NAME")
 	private String name;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@Cascade(value = CascadeType.SAVE_UPDATE)
-	@JoinTable(name = "BOOK_PUBLISHER", joinColumns = @JoinColumn(name = "BOOK_ID"), inverseJoinColumns = @JoinColumn(name = "PUBLISHER_ID"))
-	private PublisherAE publisher;
+	private PublisherAG publisher;
 
-	public BookAE() {
+	public BookAG() {
 	}
 
-	public BookAE(String name, PublisherAE publisher) {
+	public BookAG(String name, PublisherAG publisher) {
 		this.name = name;
 		this.publisher = publisher;
 	}
@@ -54,11 +52,11 @@ public class BookAE {
 		this.name = name;
 	}
 
-	public PublisherAE getPublisher() {
+	public PublisherAG getPublisher() {
 		return publisher;
 	}
 
-	public void setPublisher(PublisherAE publisher) {
+	public void setPublisher(PublisherAG publisher) {
 		this.publisher = publisher;
 	}
 
