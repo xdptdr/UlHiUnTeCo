@@ -13,6 +13,10 @@ import org.junit.Before;
 
 public class AbstractTest {
 
+	public static enum Type {
+		HSQL, MYSQL, SQLSERVER
+	}
+
 	public static final String ULHIUNTECO_PROPERTIES = "ulhiunteco.properties";
 
 	public static final String PROPERTY_KEY_TYPE = "ulhiunteco.type";
@@ -30,21 +34,39 @@ public class AbstractTest {
 	public static final String PROPERTY_KEY_MYSQL_PORT = "ulhiunteco.mysql.port";
 	public static final String PROPERTY_KEY_MYSQL_USERNAME = "ulhiunteco.mysql.username";
 	public static final String PROPERTY_KEY_MYSQL_PASSWORD = "ulhiunteco.mysql.password";
-	public static final String PROPERTY_KEY_MYSQL_POOL_SIZE = "ulhiunteco.hsql.pool_size";
+	public static final String PROPERTY_KEY_MYSQL_POOL_SIZE = "ulhiunteco.mysql.pool_size";
 
-	private static final String DEFAULT_SCHEMA = "ulhiunteco";
+	public static final String PROPERTY_KEY_SQLSERVER_DRIVER_CLASS = "ulhiunteco.sqlserver.driver_class";
+	public static final String PROPERTY_KEY_SQLSERVER_DIALECT = "ulhiunteco.sqlserver.dialect";
+	public static final String PROPERTY_KEY_SQLSERVER_SCHEMA = "ulhiunteco.sqlserver.schema";
+	public static final String PROPERTY_KEY_SQLSERVER_SERVER = "ulhiunteco.sqlserver.server";
+	public static final String PROPERTY_KEY_SQLSERVER_INSTANCE = "ulhiunteco.sqlserver.instance";
+	public static final String PROPERTY_KEY_SQLSERVER_PORT = "ulhiunteco.sqlserver.port";
+	public static final String PROPERTY_KEY_SQLSERVER_USERNAME = "ulhiunteco.sqlserver.username";
+	public static final String PROPERTY_KEY_SQLSERVER_PASSWORD = "ulhiunteco.sqlserver.password";
+	public static final String PROPERTY_KEY_SQLSERVER_POOL_SIZE = "ulhiunteco.sqlserver.pool_size";
 
-	private static final String DEFAULT_HSQL_DRIVER_CLASS = "org.hsqldb.jdbcDriver";
-	private static final String DEFAULT_HSQL_DIALECT = "org.hibernate.dialect.HSQLDialect";
-	private static final String DEFAULT_HSQL_URL_PREFIX = "jdbc:hsqldb:mem:";
-	private static final String DEFAULT_HSQL_POOLSIZE = "1";
+	public static final String DEFAULT_SCHEMA = "ulhiunteco";
 
-	private static final String DEFAULT_MYSQL_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-	private static final String DEFAULT_MYSQL_DIALECT = "org.hibernate.dialect.MySQLDialect";
-	private static final String DEFAULT_MYSQL_SERVER = "localhost";
-	private static final String DEFAULT_MYSQL_PORT = "3306";
-	private static final String DEFAULT_MYSQL_USERNAME = "root";
-	private static final String DEFAULT_MYSQL_POOLSIZE = "1";
+	public static final String DEFAULT_HSQL_DRIVER_CLASS = "org.hsqldb.jdbcDriver";
+	public static final String DEFAULT_HSQL_DIALECT = "org.hibernate.dialect.HSQLDialect";
+	public static final String DEFAULT_HSQL_URL_PREFIX = "jdbc:hsqldb:mem:";
+	public static final String DEFAULT_HSQL_POOLSIZE = "1";
+
+	public static final String DEFAULT_MYSQL_DRIVER_CLASS = "com.mysql.jdbc.Driver";
+	public static final String DEFAULT_MYSQL_DIALECT = "org.hibernate.dialect.MySQLDialect";
+	public static final String DEFAULT_MYSQL_SERVER = "localhost";
+	public static final String DEFAULT_MYSQL_PORT = "3306";
+	public static final String DEFAULT_MYSQL_USERNAME = "root";
+	public static final String DEFAULT_MYSQL_POOLSIZE = "1";
+
+	public static final String DEFAULT_SQLSERVER_DRIVER_CLASS = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	public static final String DEFAULT_SQLSERVER_DIALECT = "org.hibernate.dialect.SQLServerDialect";
+	public static final String DEFAULT_SQLSERVER_SERVER = "localhost";
+	public static final String DEFAULT_SQLSERVER_INSTANCE = "SQLEXPRESS";
+	public static final String DEFAULT_SQLSERVER_PORT = "1433";
+	public static final String DEFAULT_SQLSERVER_USERNAME = "sa";
+	public static final String DEFAULT_SQLSERVER_POOLSIZE = "1";
 
 	private Class<?>[] classes;
 	private SessionFactory sessionFactory;
@@ -87,10 +109,10 @@ public class AbstractTest {
 			Properties ulhiuntecoProperties = new Properties();
 			ulhiuntecoProperties.load(ras);
 
-			String type = ulhiuntecoProperties.getProperty(PROPERTY_KEY_TYPE);
+			Type type = Type.valueOf(ulhiuntecoProperties.getProperty(PROPERTY_KEY_TYPE).trim().toUpperCase());
 
-			if ("hsql".equals(type)) {
-
+			switch (type) {
+			case HSQL: {
 				driverClass = ulhiuntecoProperties.getProperty(PROPERTY_KEY_HSQL_DRIVER_CLASS);
 				if (driverClass == null) {
 					driverClass = DEFAULT_HSQL_DRIVER_CLASS;
@@ -116,9 +138,9 @@ public class AbstractTest {
 				if (poolSize == null) {
 					poolSize = DEFAULT_HSQL_POOLSIZE;
 				}
-
-			} else if ("mysql".equals(type)) {
-
+			}
+				break;
+			case MYSQL: {
 				driverClass = ulhiuntecoProperties.getProperty(PROPERTY_KEY_MYSQL_DRIVER_CLASS);
 				if (driverClass == null) {
 					driverClass = DEFAULT_MYSQL_DRIVER_CLASS;
@@ -158,10 +180,61 @@ public class AbstractTest {
 				if (poolSize == null) {
 					poolSize = DEFAULT_MYSQL_POOLSIZE;
 				}
+			}
+				break;
+			case SQLSERVER: {
+				driverClass = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_DRIVER_CLASS);
+				if (driverClass == null) {
+					driverClass = DEFAULT_SQLSERVER_DRIVER_CLASS;
+				}
 
+				dialect = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_DIALECT);
+				if (dialect == null) {
+					dialect = DEFAULT_SQLSERVER_DIALECT;
+				}
+
+				String server = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_SERVER);
+				String port = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_PORT);
+				String instance = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_INSTANCE);
+				schema = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_SCHEMA);
+				String username = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_USERNAME);
+				String password = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_PASSWORD);
+
+				if (server == null) {
+					server = DEFAULT_SQLSERVER_SERVER;
+				}
+				if (instance == null) {
+					instance = DEFAULT_SQLSERVER_INSTANCE;
+				}
+				if (port == null) {
+					port = DEFAULT_SQLSERVER_PORT;
+				}
+				if (schema == null) {
+					schema = DEFAULT_SCHEMA;
+				}
+				if (username == null) {
+					username = DEFAULT_SQLSERVER_USERNAME;
+				}
+
+				jdbcConnectionURL = "jdbc:sqlserver://" + server + "\\" + instance + ":" + port + ";databaseName="
+						+ schema;
+
+				if (username != null) {
+					configuration.setProperty("hibernate.connection.username", username);
+				}
+				if (password != null) {
+					configuration.setProperty("hibernate.connection.password", password);
+				}
+
+				poolSize = ulhiuntecoProperties.getProperty(PROPERTY_KEY_SQLSERVER_POOL_SIZE);
+				if (poolSize == null) {
+					poolSize = DEFAULT_SQLSERVER_POOLSIZE;
+				}
+			}
+				break;
 			}
 
-		} catch (IOException e) {
+		} catch (IOException | IllegalArgumentException | NullPointerException e) {
 			System.err.println("Couldn't load " + ULHIUNTECO_PROPERTIES);
 		}
 
