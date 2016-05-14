@@ -12,7 +12,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "Book")
+@Table(name = "BOOK_AD")
 public class BookAD {
 
 	@Id
