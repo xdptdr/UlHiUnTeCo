@@ -1,7 +1,7 @@
-package xdptdr.ulhiunteco.ah;
+package xdptdr.ulhiunteco.am;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -14,14 +14,10 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestAH extends AbstractTest {
+public class TestAM extends AbstractTest {
 
-	/**
-	 * @author xdptdr
-	 */
-
-	public TestAH() {
-		super(new Class<?>[] { BookAH.class });
+	public TestAM() {
+		super(new Class<?>[] { BookAM.class });
 	}
 
 	@Test
@@ -30,22 +26,31 @@ public class TestAH extends AbstractTest {
 		String name1 = "name1";
 		String name2 = "name2";
 
+		String chapterTitleKey1 = "chKey1";
+		String chapterTitleKey2 = "chKey2";
+		String chapterTitleKey3 = "chKey3";
+		String chapterTitleKey4 = "chKey4";
+		String chapterTitleKey5 = "chKey5";
+		String chapterTitleKey6 = "chKey6";
+
 		String chapterTitle1 = "chapterTitle1";
 		String chapterTitle2 = "chapterTitle2";
 		String chapterTitle3 = "chapterTitle3";
 		String chapterTitle4 = "chapterTitle4";
 		String chapterTitle5 = "chapterTitle5";
 
-		Set<String> chapters1 = new HashSet<String>();
-		chapters1.add(chapterTitle1);
-		chapters1.add(chapterTitle2);
-		chapters1.add(chapterTitle3);
-		Set<String> chapters2 = new HashSet<String>();
-		chapters2.add(chapterTitle4);
-		chapters2.add(chapterTitle5);
+		Map<String, String> chapters1 = new HashMap<String, String>();
+		chapters1.put(chapterTitleKey1, chapterTitle1);
+		chapters1.put(chapterTitleKey2, chapterTitle2);
+		chapters1.put(chapterTitleKey3, chapterTitle3);
 
-		BookAH book1 = new BookAH(name1, chapters1);
-		BookAH book2 = new BookAH(name2, chapters2);
+		Map<String, String> chapters2 = new HashMap<String, String>();
+		chapters2.put(chapterTitleKey4, chapterTitle4);
+		chapters2.put(chapterTitleKey5, chapterTitle5);
+		chapters2.put(chapterTitleKey6, chapterTitle5);
+
+		BookAM book1 = new BookAM(name1, chapters1);
+		BookAM book2 = new BookAM(name2, chapters2);
 
 		Long book1Id = null;
 		Long book2Id = null;

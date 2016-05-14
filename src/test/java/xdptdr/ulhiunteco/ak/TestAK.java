@@ -1,7 +1,7 @@
-package xdptdr.ulhiunteco.ah;
+package xdptdr.ulhiunteco.ak;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -14,14 +14,10 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestAH extends AbstractTest {
+public class TestAK extends AbstractTest {
 
-	/**
-	 * @author xdptdr
-	 */
-
-	public TestAH() {
-		super(new Class<?>[] { BookAH.class });
+	public TestAK() {
+		super(new Class<?>[] { BookAK.class });
 	}
 
 	@Test
@@ -36,16 +32,17 @@ public class TestAH extends AbstractTest {
 		String chapterTitle4 = "chapterTitle4";
 		String chapterTitle5 = "chapterTitle5";
 
-		Set<String> chapters1 = new HashSet<String>();
+		List<String> chapters1 = new ArrayList<String>();
 		chapters1.add(chapterTitle1);
 		chapters1.add(chapterTitle2);
 		chapters1.add(chapterTitle3);
-		Set<String> chapters2 = new HashSet<String>();
+		List<String> chapters2 = new ArrayList<String>();
 		chapters2.add(chapterTitle4);
 		chapters2.add(chapterTitle5);
+		chapters2.add(chapterTitle5);
 
-		BookAH book1 = new BookAH(name1, chapters1);
-		BookAH book2 = new BookAH(name2, chapters2);
+		BookAK book1 = new BookAK(name1, chapters1);
+		BookAK book2 = new BookAK(name2, chapters2);
 
 		Long book1Id = null;
 		Long book2Id = null;

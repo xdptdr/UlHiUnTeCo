@@ -1,6 +1,5 @@
 package xdptdr.ulhiunteco.ag;
 
-import org.hibernate.LazyInitializationException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;

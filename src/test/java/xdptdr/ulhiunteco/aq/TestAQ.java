@@ -1,4 +1,4 @@
-package xdptdr.ulhiunteco.ah;
+package xdptdr.ulhiunteco.aq;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,14 +14,14 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestAH extends AbstractTest {
+public class TestAQ extends AbstractTest {
 
 	/**
 	 * @author xdptdr
 	 */
 
-	public TestAH() {
-		super(new Class<?>[] { BookAH.class });
+	public TestAQ() {
+		super(new Class<?>[] { BookAQ.class, ChapterAQ.class });
 	}
 
 	@Test
@@ -36,16 +36,18 @@ public class TestAH extends AbstractTest {
 		String chapterTitle4 = "chapterTitle4";
 		String chapterTitle5 = "chapterTitle5";
 
-		Set<String> chapters1 = new HashSet<String>();
-		chapters1.add(chapterTitle1);
-		chapters1.add(chapterTitle2);
-		chapters1.add(chapterTitle3);
-		Set<String> chapters2 = new HashSet<String>();
-		chapters2.add(chapterTitle4);
-		chapters2.add(chapterTitle5);
+		Set<ChapterAQ> chapters1 = new HashSet<ChapterAQ>();
+		BookAQ book1 = new BookAQ(name1, chapters1);
+		
+		Set<ChapterAQ> chapters2 = new HashSet<ChapterAQ>();
+		BookAQ book2 = new BookAQ(name2, chapters2);
+		chapters1.add(new ChapterAQ(chapterTitle1, book1));
+		chapters1.add(new ChapterAQ(chapterTitle2, book1));
+		chapters1.add(new ChapterAQ(chapterTitle3, book1));
+		chapters2.add(new ChapterAQ(chapterTitle4, book2));
+		chapters2.add(new ChapterAQ(chapterTitle5, book2));
+		chapters2.add(new ChapterAQ(chapterTitle5, book2));
 
-		BookAH book1 = new BookAH(name1, chapters1);
-		BookAH book2 = new BookAH(name2, chapters2);
 
 		Long book1Id = null;
 		Long book2Id = null;

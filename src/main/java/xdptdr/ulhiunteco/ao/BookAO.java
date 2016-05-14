@@ -1,47 +1,50 @@
-package xdptdr.ulhiunteco.af;
+package xdptdr.ulhiunteco.ao;
+
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 @Entity
-@Table(name = "BOOK_AF")
-public class BookAF {
+@Table(name = "BOOK_AO")
+public class BookAO {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "BOOK_ID")
-	private Long bookId;
+	private Long id;
 
 	@Column(name = "NAME")
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = ChapterAO.class, orphanRemoval = true)
+	@JoinColumn(name = "BOOK_ID")
 	@Cascade(value = CascadeType.SAVE_UPDATE)
-	private PublisherAF publisher;
+	private Set<ChapterAO> chapters;
 
-	public BookAF() {
+	public BookAO() {
 	}
 
-	public BookAF(String name, PublisherAF publisher) {
+	public BookAO(String name, Set<ChapterAO> chapters) {
 		this.name = name;
-		this.publisher = publisher;
+		this.chapters = chapters;
 	}
 
-	public Long getBookId() {
-		return bookId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setBookId(Long bookId) {
-		this.bookId = bookId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -52,12 +55,12 @@ public class BookAF {
 		this.name = name;
 	}
 
-	public PublisherAF getPublisher() {
-		return publisher;
+	public Set<ChapterAO> getChapters() {
+		return chapters;
 	}
 
-	public void setPublisher(PublisherAF publisher) {
-		this.publisher = publisher;
+	public void setChapters(Set<ChapterAO> chapters) {
+		this.chapters = chapters;
 	}
 
 }
