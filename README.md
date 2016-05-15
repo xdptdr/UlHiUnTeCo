@@ -59,5 +59,6 @@ Index of tests:
 * [BA] (src/test/java/xdptdr/ulhiunteco/ba/TestBA.java) : Unconstrained Manager-Subordinate relationshiop with some of the crazy possibilities
   * [EmployeeBA](src/main/java/xdptdr/ulhiunteco/ba/EmployeeBA.java)
   * [ManagesBA](src/main/java/xdptdr/ulhiunteco/ba/ManagesBA.java) 
-
-
+* [BB] (src/test/java/xdptdr/ulhiunteco/bb/TestBB.java) : Exactly the same as BA with OneToOne instead of OneToMany in ManagesBB.
+  * [EmployeeBB](src/main/java/xdptdr/ulhiunteco/bb/EmployeeBB.java)
+  * [ManagesBB](src/main/java/xdptdr/ulhiunteco/bb/ManagesBB.java)

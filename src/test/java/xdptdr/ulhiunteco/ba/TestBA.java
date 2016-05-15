@@ -72,7 +72,7 @@ public class TestBA extends AbstractTest {
 		super(new Class<?>[] { EmployeeBA.class, ManagesBA.class });
 	}
 
-	private void create1() {
+	private void create() {
 
 		// one manager which manages two employees
 		// 1 manages 2 and 3
@@ -242,7 +242,7 @@ public class TestBA extends AbstractTest {
 
 	@Test
 	public void testCreate() {
-		create1();
+		create();
 	}
 
 }
