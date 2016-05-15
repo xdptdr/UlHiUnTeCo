@@ -51,4 +51,10 @@ Index of tests:
 * AW
 * AX
 * AY
-* AZ : Example of 3-ary relationship
+* [AZ](src/test/java/xdptdr/ulhiunteco/az/TestAZ.java) : Example of 3-ary relationship
+  * [ClassroomAZ](src/main/java/xdptdr/ulhiunteco/az/ClassroomAZ.java)
+  * [CourseAZ](src/main/java/xdptdr/ulhiunteco/az/CourseAZ.java)
+  * [DayAZ](src/main/java/xdptdr/ulhiunteco/az/DayAZ.java)
+  * [MeetsAZ](src/main/java/xdptdr/ulhiunteco/az/MeetsAZ.java)
+
+
