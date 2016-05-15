@@ -1,5 +1,6 @@
-package xdptdr.ulhiunteco.av;
+package xdptdr.ulhiunteco.ax;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,11 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BUILDING_AV")
-public class BuildingAV {
+@Table(name = "BUILDING_AX")
+public class BuildingAX implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,17 +32,17 @@ public class BuildingAV {
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "PERSON_USES_BUILDING_AV", joinColumns = @JoinColumn(name = "BUILDING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
-	private Set<PersonAV> usedBy = new HashSet<>();
+	@JoinTable(name = "PERSON_USES_BUILDING_AX", joinColumns = @JoinColumn(name = "BUILDING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
+	private Set<PersonAX> usedBy = new HashSet<>();
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "PERSON_CLEANS_BUILDING_AV", joinColumns = @JoinColumn(name = "BUILDING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
-	private Set<PersonAV> cleanedBy = new HashSet<>();
+	@ManyToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name = "PERSON_OWNS_BUILDING_AX", joinColumns = @JoinColumn(name = "BUILDING_ID"), inverseJoinColumns = @JoinColumn(name = "PERSON_ID"))
+	private PersonAX ownedBy;
 
-	public BuildingAV() {
+	public BuildingAX() {
 	}
 
-	public BuildingAV(String name) {
+	public BuildingAX(String name) {
 		this.name = name;
 	}
 
@@ -58,20 +62,20 @@ public class BuildingAV {
 		this.name = name;
 	}
 
-	public Set<PersonAV> getUsedBy() {
+	public Set<PersonAX> getUsedBy() {
 		return usedBy;
 	}
 
-	public void setUsedBy(Set<PersonAV> usedBy) {
+	public void setUsedBy(Set<PersonAX> usedBy) {
 		this.usedBy = usedBy;
 	}
-
-	public Set<PersonAV> getCleanedBy() {
-		return cleanedBy;
+	
+	public PersonAX getOwnedBy() {
+		return ownedBy;
 	}
 
-	public void setCleanedBy(Set<PersonAV> cleanedBy) {
-		this.cleanedBy = cleanedBy;
+	public void setOwnedBy(PersonAX ownedBy) {
+		this.ownedBy = ownedBy;
 	}
 
 	@Override
@@ -90,7 +94,7 @@ public class BuildingAV {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BuildingAV other = (BuildingAV) obj;
+		BuildingAX other = (BuildingAX) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
