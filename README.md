@@ -24,3 +24,31 @@ At some point, this project should contains the ultimate way of achieving many t
 
 But dear unsuspecting user, your curiosity is very welcome. If you notice things that are not being done as they ought to be, you may very well contribute any way you wish, by proposing some new code, or opening an issue.
 
+Index of tests:
+
+* AA : Simple Entity with @Entity, @Id, @GeneratedValue
+* AB : Same as AA with @Table and @Column
+* AC
+* AD
+* AE
+* AF
+* AG
+* AH
+* AI
+* AJ
+* AK
+* AL
+* AM
+* AN
+* AO
+* AP
+* AQ
+* AR
+* AS
+* AT
+* AU
+* AV
+* AW
+* AX
+* AY
+* AZ : Example of 3-ary relationship
