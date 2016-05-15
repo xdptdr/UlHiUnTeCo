@@ -62,3 +62,8 @@ Index of tests:
 * [BB] (src/test/java/xdptdr/ulhiunteco/bb/TestBB.java) : Exactly the same as BA with OneToOne instead of OneToMany in ManagesBB. Shows that whichever of OneToOne or OneToMany has no effect, but not using any of them does not work.
   * [EmployeeBB](src/main/java/xdptdr/ulhiunteco/bb/EmployeeBB.java)
   * [ManagesBB](src/main/java/xdptdr/ulhiunteco/bb/ManagesBB.java)
+
+* [BC](src/test/java/xdptdr/ulhiunteco/bc/TestBC.java) : Example of an attributed relation ; Strange world in which a same person can be born in different city at different dates
+  * [CityBC](src/main/java/xdptdr/ulhiunteco/bc/CityBC.java)
+  * [IsBornInBC](src/main/java/xdptdr/ulhiunteco/bc/IsBornInBC.java)
+  * [PersonBC](src/main/java/xdptdr/ulhiunteco/bc/PersonBC.java)
