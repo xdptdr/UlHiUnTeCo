@@ -14,7 +14,7 @@ import org.junit.Before;
 public class AbstractTest {
 
 	public static enum Type {
-		HSQL, MYSQL, SQLSERVER
+		HSQL, MYSQL, SQLSERVER, IMPOSSIBLE
 	}
 
 	public static final String ULHIUNTECO_PROPERTIES = "ulhiunteco.properties";
@@ -71,6 +71,8 @@ public class AbstractTest {
 	private Class<?>[] classes;
 	private SessionFactory sessionFactory;
 
+	private Type type;
+
 	public AbstractTest(Class<?>[] entityClasses) {
 		this.classes = entityClasses;
 	}
@@ -79,16 +81,20 @@ public class AbstractTest {
 	public void setUp() {
 
 		Configuration configuration = new Configuration();
+		configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+		loadUserProperties(configuration);
 		if (classes != null) {
 			for (Class<?> entityClass : classes) {
 				configuration.addAnnotatedClass(entityClass);
 			}
 		}
-		configuration.setProperty("hibernate.hbm2ddl.auto", "create");
-		loadUserProperties(configuration);
+		customizeSetup(configuration);
 		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 				.applySettings(configuration.getProperties()).build();
 		this.sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	}
+
+	protected void customizeSetup(Configuration configuration) {
 	}
 
 	private void loadUserProperties(Configuration configuration) {
@@ -109,7 +115,7 @@ public class AbstractTest {
 			Properties ulhiuntecoProperties = new Properties();
 			ulhiuntecoProperties.load(ras);
 
-			Type type = Type.valueOf(ulhiuntecoProperties.getProperty(PROPERTY_KEY_TYPE).trim().toUpperCase());
+			type = Type.valueOf(ulhiuntecoProperties.getProperty(PROPERTY_KEY_TYPE).trim().toUpperCase());
 
 			switch (type) {
 			case HSQL: {
@@ -232,6 +238,8 @@ public class AbstractTest {
 				}
 			}
 				break;
+			case IMPOSSIBLE:
+				throw new IllegalArgumentException("Impossible type is not supported");
 			}
 
 		} catch (IOException | IllegalArgumentException | NullPointerException e) {
@@ -257,4 +265,7 @@ public class AbstractTest {
 		return sessionFactory;
 	}
 
+	public Type getType() {
+		return type;
+	}
 }
