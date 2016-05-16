@@ -13,21 +13,21 @@ import xdptdr.ulhiunteco.test.AbstractTest;
 
 public class TestBE extends AbstractTest {
 
-	private String userName1 = "userName";
-	private String billingStreet1 = "billingStreet";
-	private String billingZipcode1 = "billingZipcode";
-	private String billingCity1 = "billingCity";
-	private String homeStreet1 = "homeStreet";
-	private String homeZipCode1 = "homeZipCode";
-	private String homeCity1 = "homeCity";
+	private String userName1 = "userName1";
+	private String billingStreet1 = "billingStreet1";
+	private String billingZipcode1 = "billingZipcode1";
+	private String billingCity1 = "billingCity1";
+	private String homeStreet1 = "homeStreet1";
+	private String homeZipCode1 = "homeZipCode1";
+	private String homeCity1 = "homeCity1";
 
-	private String userName2 = "userName";
-	private String billingStreet2 = "billingStreet";
-	private String billingZipcode2 = "billingZipcode";
-	private String billingCity2 = "billingCity";
-	private String homeStreet2 = "homeStreet";
-	private String homeZipCode2 = "homeZipCode";
-	private String homeCity2 = "homeCity";
+	private String userName2 = "userName2";
+	private String billingStreet2 = "billingStreet2";
+	private String billingZipcode2 = "billingZipcode2";
+	private String billingCity2 = "billingCity2";
+	private String homeStreet2 = "homeStreet2";
+	private String homeZipCode2 = "homeZipCode2";
+	private String homeCity2 = "homeCity2";
 
 	private Long user1Id;
 	private Long user2Id;

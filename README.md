@@ -62,7 +62,6 @@ Index of tests:
 * [BB](src/test/java/xdptdr/ulhiunteco/bb/TestBB.java) : Exactly the same as BA with OneToOne instead of OneToMany in ManagesBB. Shows that whichever of OneToOne or OneToMany has no effect, but not using any of them does not work.
   * [EmployeeBB](src/main/java/xdptdr/ulhiunteco/bb/EmployeeBB.java)
   * [ManagesBB](src/main/java/xdptdr/ulhiunteco/bb/ManagesBB.java)
-
 * [BC](src/test/java/xdptdr/ulhiunteco/bc/TestBC.java) : Example of an attributed relation ; Strange world in which a same person can be born in different city at different dates
   * [CityBC](src/main/java/xdptdr/ulhiunteco/bc/CityBC.java)
   * [IsBornInBC](src/main/java/xdptdr/ulhiunteco/bc/IsBornInBC.java)
@@ -70,3 +69,7 @@ Index of tests:
 * [BD](src/test/java/xdptdr/ulhiunteco/bd/TestBD.java) : Simple linked messages
 * [BE](src/test/java/xdptdr/ulhiunteco/be/TestBE.java) : User with private id accessed using session.getIdentifier()
   * [UserBE](src/main/java/xdptdr/ulhiunteco/be/UserBE.java)
+* [BF](src/test/java/xdptdr/ulhiunteco/be/TestBF.java) : Difference between annotations on fields and annotations on getters
+  * [UserOnGettersBE](src/main/java/xdptdr/ulhiunteco/be/UserOnGettersBE.java)
+  * [UserOnFieldsBE](src/main/java/xdptdr/ulhiunteco/be/UserOnFieldsBE.java)
+  
