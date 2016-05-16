@@ -1,4 +1,4 @@
-package xdptdr.ulhiunteco.bk;
+package xdptdr.ulhiunteco.bn;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,7 +11,7 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestBK extends AbstractTest {
+public class TestBN extends AbstractTest {
 
 	private String parameterName = "parameterName";
 	private String parameterValue = "parameterValue";
@@ -20,8 +20,10 @@ public class TestBK extends AbstractTest {
 	private Long parameterId;
 	private Long countryId;
 
-	public TestBK() {
-		super(new Class<?>[] { NamedItemBK.class, ParameterBK.class, CountryBK.class });
+	public TestBN() {
+		// Base class does not need to be included in the list of annotated
+		// class
+		super(new Class<?>[] { ParameterBN.class, CountryBN.class });
 	}
 
 	private void create() {
@@ -32,8 +34,8 @@ public class TestBK extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			ParameterBK parameter = new ParameterBK(parameterName, parameterValue);
-			CountryBK country = new CountryBK(countryName, countryPopulation);
+			ParameterBN parameter = new ParameterBN(parameterName, parameterValue);
+			CountryBN country = new CountryBN(countryName, countryPopulation);
 			session.save(parameter);
 			session.save(country);
 			parameterId = (Long) session.getIdentifier(parameter);
@@ -54,4 +56,32 @@ public class TestBK extends AbstractTest {
 	public void testCreate() {
 		create();
 	}
+
+	@Test
+	public void testQuery() {
+
+		create();
+
+		ParameterBN parameter = null;
+
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = getSessionFactory().openSession();
+			tx = session.beginTransaction();
+
+			parameter = (ParameterBN) session.get(ParameterBN.class, parameterId);
+
+			tx.commit();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+
+		// In this scenario too, the base class part IS persistent
+
+		Assert.assertEquals(parameterName, parameter.getName());
+	}
+
 }
