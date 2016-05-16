@@ -1,4 +1,4 @@
-package xdptdr.ulhiunteco.bp;
+package xdptdr.ulhiunteco.bt;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,7 +11,7 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestBP extends AbstractTest {
+public class TestBT extends AbstractTest {
 
 	private String parameterName = "parameterName";
 	private String parameterValue = "parameterValue";
@@ -20,8 +20,11 @@ public class TestBP extends AbstractTest {
 	private Long parameterId;
 	private Long countryId;
 
-	public TestBP() {
-		super(new Class<?>[] { ParameterBP.class, CountryBP.class });
+	// union mapping with three tables (base is not abstract)
+	// base fields are still duplicated because the table for the base class is only for concrete instance of that class
+
+	public TestBT() {
+		super(new Class<?>[] { NamedItemBT.class, ParameterBT.class, CountryBT.class });
 	}
 
 	private void create() {
@@ -32,8 +35,8 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			ParameterBP parameter = new ParameterBP(parameterName, parameterValue);
-			CountryBP country = new CountryBP(countryName, countryPopulation);
+			ParameterBT parameter = new ParameterBT(parameterName, parameterValue);
+			CountryBT country = new CountryBT(countryName, countryPopulation);
 			session.save(parameter);
 			session.save(country);
 			parameterId = (Long) session.getIdentifier(parameter);
@@ -56,11 +59,11 @@ public class TestBP extends AbstractTest {
 	}
 
 	@Test
-	public void testQuery() {
+	public void testParameterNameQuery() {
 
 		create();
 
-		ParameterBP parameter = null;
+		ParameterBT parameter = null;
 
 		Session session = null;
 		Transaction tx = null;
@@ -68,7 +71,7 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			parameter = (ParameterBP) session.get(ParameterBP.class, parameterId);
+			parameter = (ParameterBT) session.get(ParameterBT.class, parameterId);
 
 			tx.commit();
 		} finally {
@@ -78,6 +81,32 @@ public class TestBP extends AbstractTest {
 		}
 
 		Assert.assertEquals(parameterName, parameter.getName());
+	}
+	
+	@Test
+	public void testCastQuery() {
+
+		create();
+
+		NamedItemBT namedItem = null;
+
+		Session session = null;
+		Transaction tx = null;
+		try {
+			session = getSessionFactory().openSession();
+			tx = session.beginTransaction();
+
+			namedItem = (NamedItemBT) session.get(NamedItemBT.class, parameterId);
+
+			tx.commit();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+
+		Assert.assertEquals(parameterName, namedItem.getName());
+		Assert.assertTrue(namedItem instanceof ParameterBT);
 	}
 
 }

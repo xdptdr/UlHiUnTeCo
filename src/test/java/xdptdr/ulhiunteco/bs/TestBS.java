@@ -1,4 +1,6 @@
-package xdptdr.ulhiunteco.bp;
+package xdptdr.ulhiunteco.bs;
+
+import javax.persistence.GenerationType;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,7 +13,7 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestBP extends AbstractTest {
+public class TestBS extends AbstractTest {
 
 	private String parameterName = "parameterName";
 	private String parameterValue = "parameterValue";
@@ -20,8 +22,12 @@ public class TestBP extends AbstractTest {
 	private Long parameterId;
 	private Long countryId;
 
-	public TestBP() {
-		super(new Class<?>[] { ParameterBP.class, CountryBP.class });
+	// this is union mapping
+	// there are only two tables because NamedItemBS is abstract
+	// using GenerationType.TABLE, because default GenerationType.IDENTITY can't be used for union mapping 
+	
+	public TestBS() {
+		super(new Class<?>[] { NamedItemBS.class, ParameterBS.class, CountryBS.class });
 	}
 
 	private void create() {
@@ -32,8 +38,8 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			ParameterBP parameter = new ParameterBP(parameterName, parameterValue);
-			CountryBP country = new CountryBP(countryName, countryPopulation);
+			ParameterBS parameter = new ParameterBS(parameterName, parameterValue);
+			CountryBS country = new CountryBS(countryName, countryPopulation);
 			session.save(parameter);
 			session.save(country);
 			parameterId = (Long) session.getIdentifier(parameter);
@@ -60,7 +66,7 @@ public class TestBP extends AbstractTest {
 
 		create();
 
-		ParameterBP parameter = null;
+		ParameterBS parameter = null;
 
 		Session session = null;
 		Transaction tx = null;
@@ -68,7 +74,7 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			parameter = (ParameterBP) session.get(ParameterBP.class, parameterId);
+			parameter = (ParameterBS) session.get(ParameterBS.class, parameterId);
 
 			tx.commit();
 		} finally {

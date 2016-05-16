@@ -1,17 +1,20 @@
-package xdptdr.ulhiunteco.bp;
+package xdptdr.ulhiunteco.br;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 
+import xdptdr.ulhiunteco.br.CountryBR;
+import xdptdr.ulhiunteco.br.NamedItemBR;
+import xdptdr.ulhiunteco.br.ParameterBR;
 import xdptdr.ulhiunteco.test.AbstractTest;
 
 /**
  * @author xdptdr
  */
 
-public class TestBP extends AbstractTest {
+public class TestBR extends AbstractTest {
 
 	private String parameterName = "parameterName";
 	private String parameterValue = "parameterValue";
@@ -20,8 +23,10 @@ public class TestBP extends AbstractTest {
 	private Long parameterId;
 	private Long countryId;
 
-	public TestBP() {
-		super(new Class<?>[] { ParameterBP.class, CountryBP.class });
+	// TABLE_PER_CLASS didn't seem to change anything here, possibly because of MappedSuperclass
+	
+	public TestBR() {
+		super(new Class<?>[] { NamedItemBR.class, ParameterBR.class, CountryBR.class });
 	}
 
 	private void create() {
@@ -32,8 +37,8 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			ParameterBP parameter = new ParameterBP(parameterName, parameterValue);
-			CountryBP country = new CountryBP(countryName, countryPopulation);
+			ParameterBR parameter = new ParameterBR(parameterName, parameterValue);
+			CountryBR country = new CountryBR(countryName, countryPopulation);
 			session.save(parameter);
 			session.save(country);
 			parameterId = (Long) session.getIdentifier(parameter);
@@ -60,7 +65,7 @@ public class TestBP extends AbstractTest {
 
 		create();
 
-		ParameterBP parameter = null;
+		ParameterBR parameter = null;
 
 		Session session = null;
 		Transaction tx = null;
@@ -68,7 +73,7 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			parameter = (ParameterBP) session.get(ParameterBP.class, parameterId);
+			parameter = (ParameterBR) session.get(ParameterBR.class, parameterId);
 
 			tx.commit();
 		} finally {

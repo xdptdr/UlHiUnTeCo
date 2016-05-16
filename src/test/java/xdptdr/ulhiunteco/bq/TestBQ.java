@@ -1,4 +1,4 @@
-package xdptdr.ulhiunteco.bp;
+package xdptdr.ulhiunteco.bq;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,7 +11,7 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestBP extends AbstractTest {
+public class TestBQ extends AbstractTest {
 
 	private String parameterName = "parameterName";
 	private String parameterValue = "parameterValue";
@@ -20,8 +20,10 @@ public class TestBP extends AbstractTest {
 	private Long parameterId;
 	private Long countryId;
 
-	public TestBP() {
-		super(new Class<?>[] { ParameterBP.class, CountryBP.class });
+	// with this set up, there are still 2 tables, possibly because the base class is marked as Mapped
+	
+	public TestBQ() {
+		super(new Class<?>[] { NamedItemBQ.class, ParameterBQ.class, CountryBQ.class });
 	}
 
 	private void create() {
@@ -32,8 +34,8 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			ParameterBP parameter = new ParameterBP(parameterName, parameterValue);
-			CountryBP country = new CountryBP(countryName, countryPopulation);
+			ParameterBQ parameter = new ParameterBQ(parameterName, parameterValue);
+			CountryBQ country = new CountryBQ(countryName, countryPopulation);
 			session.save(parameter);
 			session.save(country);
 			parameterId = (Long) session.getIdentifier(parameter);
@@ -60,7 +62,7 @@ public class TestBP extends AbstractTest {
 
 		create();
 
-		ParameterBP parameter = null;
+		ParameterBQ parameter = null;
 
 		Session session = null;
 		Transaction tx = null;
@@ -68,7 +70,7 @@ public class TestBP extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			parameter = (ParameterBP) session.get(ParameterBP.class, parameterId);
+			parameter = (ParameterBQ) session.get(ParameterBQ.class, parameterId);
 
 			tx.commit();
 		} finally {
