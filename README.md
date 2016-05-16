@@ -56,10 +56,10 @@ Index of tests:
   * [CourseAZ](src/main/java/xdptdr/ulhiunteco/az/CourseAZ.java)
   * [DayAZ](src/main/java/xdptdr/ulhiunteco/az/DayAZ.java)
   * [MeetsAZ](src/main/java/xdptdr/ulhiunteco/az/MeetsAZ.java)
-* [BA] (src/test/java/xdptdr/ulhiunteco/ba/TestBA.java) : Unconstrained Manager-Subordinate relationshiop with some of the crazy possibilities
+* [BA](src/test/java/xdptdr/ulhiunteco/ba/TestBA.java) : Unconstrained Manager-Subordinate relationshiop with some of the crazy possibilities
   * [EmployeeBA](src/main/java/xdptdr/ulhiunteco/ba/EmployeeBA.java)
   * [ManagesBA](src/main/java/xdptdr/ulhiunteco/ba/ManagesBA.java) 
-* [BB] (src/test/java/xdptdr/ulhiunteco/bb/TestBB.java) : Exactly the same as BA with OneToOne instead of OneToMany in ManagesBB. Shows that whichever of OneToOne or OneToMany has no effect, but not using any of them does not work.
+* [BB](src/test/java/xdptdr/ulhiunteco/bb/TestBB.java) : Exactly the same as BA with OneToOne instead of OneToMany in ManagesBB. Shows that whichever of OneToOne or OneToMany has no effect, but not using any of them does not work.
   * [EmployeeBB](src/main/java/xdptdr/ulhiunteco/bb/EmployeeBB.java)
   * [ManagesBB](src/main/java/xdptdr/ulhiunteco/bb/ManagesBB.java)
 
@@ -67,3 +67,6 @@ Index of tests:
   * [CityBC](src/main/java/xdptdr/ulhiunteco/bc/CityBC.java)
   * [IsBornInBC](src/main/java/xdptdr/ulhiunteco/bc/IsBornInBC.java)
   * [PersonBC](src/main/java/xdptdr/ulhiunteco/bc/PersonBC.java)
+* [BD](src/test/java/xdptdr/ulhiunteco/bd/TestBD.java) : Simple linked messages
+* [BE](src/test/java/xdptdr/ulhiunteco/be/TestBE.java) : User with private id accessed using session.getIdentifier()
+  * [UserBE](src/main/java/xdptdr/ulhiunteco/be/UserBE.java)
