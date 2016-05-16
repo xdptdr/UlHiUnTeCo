@@ -1,19 +1,19 @@
-package xdptdr.ulhiunteco.bj;
+package xdptdr.ulhiunteco.bk;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class ParameterBJ extends NamedItemBJ {
+public class ParameterBK extends NamedItemBK {
 
 	@Column(name = "VALUE")
 	String value;
 
-	public ParameterBJ() {
+	public ParameterBK() {
 		super();
 	}
 
-	public ParameterBJ(String name, String value) {
+	public ParameterBK(String name, String value) {
 		super(name);
 		this.value = value;
 	}

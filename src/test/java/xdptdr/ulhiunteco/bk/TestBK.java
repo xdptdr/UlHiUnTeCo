@@ -1,4 +1,4 @@
-package xdptdr.ulhiunteco.bj;
+package xdptdr.ulhiunteco.bk;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import xdptdr.ulhiunteco.test.AbstractTest;
  * @author xdptdr
  */
 
-public class TestBJ extends AbstractTest {
+public class TestBK extends AbstractTest {
 
 	private String parameterName = "parameterName";
 	private String parameterValue = "parameterValue";
@@ -23,8 +23,8 @@ public class TestBJ extends AbstractTest {
 	private Long parameterId;
 	private Long countryId;
 
-	public TestBJ() {
-		super(new Class<?>[] { NamedItemBJ.class, ParameterBJ.class, CountryBJ.class });
+	public TestBK() {
+		super(new Class<?>[] { NamedItemBK.class, ParameterBK.class, CountryBK.class });
 	}
 
 	private void create() {
@@ -35,8 +35,8 @@ public class TestBJ extends AbstractTest {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
 
-			ParameterBJ parameter = new ParameterBJ(parameterName, parameterValue);
-			CountryBJ country = new CountryBJ(countryName, countryPopulation);
+			ParameterBK parameter = new ParameterBK(parameterName, parameterValue);
+			CountryBK country = new CountryBK(countryName, countryPopulation);
 			session.save(parameter);
 			session.save(country);
 			parameterId = (Long) session.getIdentifier(parameter);
@@ -75,8 +75,8 @@ public class TestBJ extends AbstractTest {
 				session = getSessionFactory().openSession();
 				tx = session.beginTransaction();
 
-				Query query = session.createQuery("from NamedItemBJ where DTYPE = ?");
-				query.setParameter(0, "ParameterBJ");
+				Query query = session.createQuery("from NamedItemBK where DTYPE = ?");
+				query.setParameter(0, "ParameterBK");
 
 				results = query.list();
 
@@ -89,7 +89,7 @@ public class TestBJ extends AbstractTest {
 
 			Assert.assertTrue(results.size() > 0);
 			for (Object result : results) {
-				Assert.assertTrue(result instanceof ParameterBJ);
+				Assert.assertTrue(result instanceof ParameterBK);
 			}
 		}
 
@@ -103,8 +103,8 @@ public class TestBJ extends AbstractTest {
 				session = getSessionFactory().openSession();
 				tx = session.beginTransaction();
 
-				Query query = session.createQuery("from NamedItemBJ where DTYPE = ?");
-				query.setParameter(0, "CountryBJ");
+				Query query = session.createQuery("from NamedItemBK where DTYPE = ?");
+				query.setParameter(0, "CountryBK");
 
 				results = query.list();
 
@@ -117,7 +117,7 @@ public class TestBJ extends AbstractTest {
 
 			Assert.assertTrue(results.size() > 0);
 			for (Object result : results) {
-				Assert.assertTrue(result instanceof CountryBJ);
+				Assert.assertTrue(result instanceof CountryBK);
 			}
 		}
 

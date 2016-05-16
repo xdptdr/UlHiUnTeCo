@@ -1,19 +1,19 @@
-package xdptdr.ulhiunteco.bj;
+package xdptdr.ulhiunteco.bk;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class CountryBJ extends NamedItemBJ {
+public class CountryBK extends NamedItemBK {
 
 	@Column(name = "POPULATION")
 	Integer population;
 
-	public CountryBJ() {
+	public CountryBK() {
 		super();
 	}
 
-	public CountryBJ(String name, Integer population) {
+	public CountryBK(String name, Integer population) {
 		super(name);
 		this.population = population;
 	}
