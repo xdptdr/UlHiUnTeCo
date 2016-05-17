@@ -39,7 +39,7 @@ public class TypologyAT {
 	@Type(type = "big_integer")
 	@Column(name = "BIG_INTEGER_AT")
 	private BigInteger aBigInteger;
-
+	
 	@Type(type = "binary")
 	@Column(name = "BINARY_AT")
 	private byte[] aBinary;
