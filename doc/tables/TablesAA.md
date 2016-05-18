@@ -1,0 +1,1 @@
+Table <code>ulhiunteco.fooaa</code><table><thead><tr><th><code>id [BIGINT]</code></th><th><code>name [VARCHAR]</code></th></tr></thead><tbody><tr><td><code>1</code></td><td><code>fooName</code></td></tr></tbody></table>

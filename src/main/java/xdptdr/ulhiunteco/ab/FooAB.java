@@ -1,22 +1,29 @@
-package xdptdr.ulhiunteco.aa;
 
+package xdptdr.ulhiunteco.ab;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class PersonAA {
+@Table(name = "FOO_AB")
+public class FooAB {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
 	Long id;
 
+	@Column(name = "NAME")
 	String name;
 
-	public PersonAA() {
+	public FooAB() {
 	}
 
-	public PersonAA(String name) {
+	public FooAB(String name) {
 		this.name = name;
 	}
 

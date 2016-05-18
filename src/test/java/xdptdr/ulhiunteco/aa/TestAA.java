@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.aa;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -8,12 +11,16 @@ import org.junit.Test;
 import xdptdr.ulhiunteco.test.AbstractTest;
 
 /**
- * <p>AA is the most basic persistence case. It inserts a single entity in the
- * database that has a String parameter and an automatically generated id.</p>
+ * <p>
+ * AA is the most basic persistence case. It inserts a single entity in the
+ * database that has a String parameter and an automatically generated id.
+ * </p>
  * 
- * <p>This demonstrates basic usage of {@linkplain javax.persistence.Entity},
+ * <p>
+ * This demonstrates basic usage of {@linkplain javax.persistence.Entity},
  * {@linkplain javax.persistence.Id} and
- * {@linkplain javax.persistence.GeneratedValue} annotations</p>
+ * {@linkplain javax.persistence.GeneratedValue} annotations
+ * </p>
  * 
  * @author xdptdr
  *
@@ -22,28 +29,27 @@ import xdptdr.ulhiunteco.test.AbstractTest;
 public class TestAA extends AbstractTest {
 
 	public TestAA() {
-		super(new Class<?>[] { PersonAA.class });
+		super(new Class<?>[] { FooAA.class });
 	}
 
 	/**
 	 * Inserts a single entity then checks that its resulting ID is not null
 	 */
 
-	@Test
-	public void test() {
+	private final String fooName = "fooName";
+	Long fooId = null;
 
-		String name1 = "name1";
-		PersonAA person1 = new PersonAA(name1);
+	public void create() {
 
-		Long person1Id = null;
+		FooAA foo = new FooAA(fooName);
 
 		Session session = null;
 		Transaction tx = null;
 		try {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
-			session.saveOrUpdate(person1);
-			person1Id = person1.getId();
+			session.save(foo);
+			fooId = foo.getId();
 			tx.commit();
 		} finally {
 			if (session != null) {
@@ -51,7 +57,21 @@ public class TestAA extends AbstractTest {
 			}
 		}
 
-		Assert.assertNotNull(person1Id);
+		Assert.assertNotNull(fooId);
+	}
+
+	@Test
+	public void testCreate() {
+		create();
+	}
+	
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.fooaa"));
 	}
 
 }

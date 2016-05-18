@@ -1,11 +1,14 @@
 package xdptdr.ulhiunteco.ab;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 
-import xdptdr.ulhiunteco.ab.PersonAB;
+import xdptdr.ulhiunteco.ab.FooAB;
 import xdptdr.ulhiunteco.test.AbstractTest;
 
 /**
@@ -26,28 +29,27 @@ import xdptdr.ulhiunteco.test.AbstractTest;
 public class TestAB extends AbstractTest {
 
 	public TestAB() {
-		super(new Class<?>[] { PersonAB.class });
+		super(new Class<?>[] { FooAB.class });
 	}
 
 	/**
 	 * Inserts a single entity then checks that its resulting ID is not null
 	 */
 
-	@Test
-	public void test() {
+	private final static String fooName = "fooName";
+	private Long fooId = null;
 
-		String name1 = "name1";
-		PersonAB person1 = new PersonAB(name1);
+	public void create() {
 
-		Long person1Id = null;
+		FooAB foo = new FooAB(fooName);
 
 		Session session = null;
 		Transaction tx = null;
 		try {
 			session = getSessionFactory().openSession();
 			tx = session.beginTransaction();
-			session.saveOrUpdate(person1);
-			person1Id = person1.getId();
+			session.saveOrUpdate(foo);
+			fooId = foo.getId();
 			tx.commit();
 		} finally {
 			if (session != null) {
@@ -55,7 +57,20 @@ public class TestAB extends AbstractTest {
 			}
 		}
 
-		Assert.assertNotNull(person1Id);
+		Assert.assertNotNull(fooId);
 	}
 
+	@Test
+	public void testCreate() {
+		create();
+	}
+
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_AB"));
+	}
 }

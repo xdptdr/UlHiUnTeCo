@@ -26,8 +26,12 @@ But dear unsuspecting user, your curiosity is very welcome. If you notice things
 
 Index of tests:
 
-* [AA](src/test/java/xdptdr/ulhiunteco/az/TestAA.java) : Simple Entity with @Entity, @Id, @GeneratedValue
-* [AB](src/test/java/xdptdr/ulhiunteco/az/TestAB.java) : Same as AA with @Table and @Column
+* [AA](src/test/java/xdptdr/ulhiunteco/aa/TestAA.java) : Simple Entity with @Entity, @Id, @GeneratedValue
+  * [Generated tables](doc/tables/TablesAA.md)
+  * [FooAA](src/main/java/xdptdr/ulhiunteco/aa/FooAA.java)
+* [AB](src/test/java/xdptdr/ulhiunteco/ab/TestAB.java) : Same as AA with @Table and @Column
+  * [Generated tables](doc/tables/TablesAB.md)
+  * [FooAB](src/main/java/xdptdr/ulhiunteco/ab/FooAB.java)
 * [AZ](src/test/java/xdptdr/ulhiunteco/az/TestAZ.java) : Example of 3-ary relationship
   * [ClassroomAZ](src/main/java/xdptdr/ulhiunteco/az/ClassroomAZ.java)
   * [CourseAZ](src/main/java/xdptdr/ulhiunteco/az/CourseAZ.java)
