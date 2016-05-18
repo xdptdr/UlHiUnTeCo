@@ -37,10 +37,10 @@ Index of tests:
   * [EmployeeBA](src/main/java/xdptdr/ulhiunteco/ba/EmployeeBA.java)
   * [ManagesBA](src/main/java/xdptdr/ulhiunteco/ba/ManagesBA.java) 
 * [BE](src/test/java/xdptdr/ulhiunteco/be/TestBE.java) : Entity with private id accessed using session.getIdentifier()
-  * [Generated tables](doc/tables/TablesBE.java)
+  * [Generated tables](doc/tables/TablesBE.md)
   * [FooBE](src/main/java/xdptdr/ulhiunteco/be/FooBE.java)
 * [BF](src/test/java/xdptdr/ulhiunteco/be/TestBF.java) : Difference between annotations on fields and annotations on getters, with query unit test
-  * [Generated tables](doc/tables/TablesBF.java)
+  * [Generated tables](doc/tables/TablesBF.md)
   * [FooOnGettersBE](src/main/java/xdptdr/ulhiunteco/be/FooOnGettersBE.java)
   * [FooOnFieldsBE](src/main/java/xdptdr/ulhiunteco/be/FooOnFieldsBE.java)
   
