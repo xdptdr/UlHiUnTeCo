@@ -1,5 +1,6 @@
 package xdptdr.ulhiunteco.cr;
 
+import java.io.PrintStream;
 import java.sql.SQLException;
 
 import org.hibernate.Session;
@@ -93,11 +94,11 @@ public class TestCR extends AbstractTest {
 
 		create();
 
-		System.out.println(dumpTable("ulhiunteco.FOO_CR"));
-		System.out.println(dumpTable("ulhiunteco.BAR_CR"));
-		System.out.println(dumpTable("ulhiunteco.ZOI_CR"));
-		System.out.println(dumpTable("ulhiunteco.FOO_ZOI_BAR_CR"));
-		System.out.println(this.getClass().getCanonicalName());
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CR"));
+		tableOutputStream.println(dumpTable("ulhiunteco.BAR_CR"));
+		tableOutputStream.println(dumpTable("ulhiunteco.ZOI_CR"));
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_ZOI_BAR_CR"));
 	}
 
 }

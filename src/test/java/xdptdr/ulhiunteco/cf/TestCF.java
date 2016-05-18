@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.cf;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -24,7 +27,6 @@ public class TestCF extends AbstractTest {
 	}
 
 	private void create() {
-
 		Session session = null;
 		Transaction tx = null;
 		try {
@@ -55,6 +57,16 @@ public class TestCF extends AbstractTest {
 	@Test
 	public void testCreate() {
 		create();
+	}
+	
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CF"));
+		tableOutputStream.println(dumpTable("ulhiunteco.BAR_CF"));
 	}
 
 }

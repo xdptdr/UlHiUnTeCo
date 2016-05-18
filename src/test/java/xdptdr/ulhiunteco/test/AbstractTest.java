@@ -2,6 +2,7 @@ package xdptdr.ulhiunteco.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,6 +23,10 @@ public class AbstractTest {
 
 	public static enum Type {
 		HSQL, MYSQL, SQLSERVER, IMPOSSIBLE
+	}
+
+	public static enum TableOutputType {
+		CONSOLE, MARKDOWN
 	}
 
 	public static final String ULHIUNTECO_PROPERTIES = "ulhiunteco.properties";
@@ -81,6 +86,9 @@ public class AbstractTest {
 	private Type type;
 
 	private Configuration configuration;
+
+	private PrintStream tableOutputStream = System.out;
+	private TableOutputType tableOutputType = TableOutputType.CONSOLE;
 
 	public AbstractTest(Class<?>[] entityClasses) {
 		this.classes = entityClasses;
@@ -290,78 +298,143 @@ public class AbstractTest {
 	}
 
 	public String dumpTable(String tableName) throws SQLException {
-		{
-			Connection connection = getJDBCConnection();
-			PreparedStatement ps = connection.prepareStatement("select * from " + tableName);
-			ResultSet result = ps.executeQuery();
-			int ccount = result.getMetaData().getColumnCount();
-			List<String[]> table = new ArrayList<String[]>();
+		Connection connection = getJDBCConnection();
+		PreparedStatement ps = connection.prepareStatement("select * from " + tableName);
+		ResultSet result = ps.executeQuery();
+		int ccount = result.getMetaData().getColumnCount();
+		List<String[]> table = new ArrayList<String[]>();
 
-			String[] headers = new String[ccount];
+		String[] headers = new String[ccount];
+		for (int i = 1; i <= ccount; ++i) {
+			String name = result.getMetaData().getColumnName(i);
+			String type = result.getMetaData().getColumnTypeName(i);
+			headers[i - 1] = name + " [" + type + "]";
+
+		}
+		table.add(headers);
+		while (result.next()) {
+			String[] data = new String[ccount];
 			for (int i = 1; i <= ccount; ++i) {
-				String name = result.getMetaData().getColumnName(i);
-				String type = result.getMetaData().getColumnTypeName(i);
-				headers[i - 1] = name + " [" + type + "]";
+				data[i - 1] = result.getString(i);
 
 			}
-			table.add(headers);
-			while (result.next()) {
-				String[] data = new String[ccount];
-				for (int i = 1; i <= ccount; ++i) {
-					data[i - 1] = result.getString(i);
-
-				}
-				table.add(data);
-			}
-
-			long[] maxwidth = new long[ccount];
-
-			for (int j = 0; j < ccount; ++j) {
-				for (int i = 0; i < table.size(); ++i) {
-					if (maxwidth[j] < table.get(i)[j].length()) {
-						maxwidth[j] = table.get(i)[j].length();
-					}
-				}
-			}
-
-			StringBuffer seplinebuf = new StringBuffer();
-			for (int j = 0; j < ccount; ++j) {
-				if (j == 0) {
-					seplinebuf.append("+");
-				}
-				seplinebuf.append("-");
-				for (int k = 0; k < maxwidth[j]; ++k) {
-					seplinebuf.append("-");
-				}
-				seplinebuf.append("-+");
-			}
-			seplinebuf.append("\n");
-
-			String sepline = seplinebuf.toString();
-
-			StringBuffer buf = new StringBuffer();
-			for (int i = 0; i < table.size(); ++i) {
-				if (i <= 1) {
-					buf.append(sepline);
-				}
-				for (int j = 0; j < ccount; ++j) {
-					String str = table.get(i)[j];
-					if (j == 0) {
-						buf.append("|");
-					}
-					buf.append(" ");
-					buf.append(str);
-					for (int k = str.length(); k < maxwidth[j]; ++k) {
-						buf.append(" ");
-					}
-					buf.append(" |");
-				}
-				buf.append("\n");
-			}
-			buf.append(sepline);
-			return buf.toString();
+			table.add(data);
 		}
 
+		long[] maxwidth = new long[ccount];
+
+		for (int j = 0; j < ccount; ++j) {
+			for (int i = 0; i < table.size(); ++i) {
+				String datum = table.get(i)[j];
+				if (datum == null) {
+					// TODO : handle null values unambiguously
+					datum = "null";
+				}
+				if (datum != null && maxwidth[j] < datum.length()) {
+					maxwidth[j] = datum.length();
+				}
+			}
+		}
+
+		switch (tableOutputType) {
+		case CONSOLE:
+			return dumpTableConsole(ccount, maxwidth, tableName, table);
+		case MARKDOWN:
+			return dumpTableMarkdown(ccount, maxwidth, tableName, table);
+		}
+		// unreachable code
+		return null;
+	}
+
+	private String dumpTableConsole(int ccount, long[] maxwidth, String tableName, List<String[]> table) {
+		StringBuffer seplinebuf = new StringBuffer();
+		for (int j = 0; j < ccount; ++j) {
+			if (j == 0) {
+				seplinebuf.append("+");
+			}
+			seplinebuf.append("-");
+			for (int k = 0; k < maxwidth[j]; ++k) {
+				seplinebuf.append("-");
+			}
+			seplinebuf.append("-+");
+		}
+		seplinebuf.append("\n");
+
+		String sepline = seplinebuf.toString();
+
+		StringBuffer buf = new StringBuffer();
+		buf.append("Table ");
+		buf.append(tableName);
+		buf.append("\n");
+		for (int i = 0; i < table.size(); ++i) {
+			if (i <= 1) {
+				buf.append(sepline);
+			}
+			for (int j = 0; j < ccount; ++j) {
+				String str = table.get(i)[j];
+				if (str == null) {
+					// TODO : handle null values unambiguously
+					str = "null";
+				}
+				if (j == 0) {
+					buf.append("|");
+				}
+				buf.append(" ");
+				buf.append(str);
+				for (int k = str.length(); k < maxwidth[j]; ++k) {
+					buf.append(" ");
+				}
+				buf.append(" |");
+			}
+			buf.append("\n");
+		}
+		buf.append(sepline);
+		return buf.toString();
+	}
+
+	private String dumpTableMarkdown(int ccount, long[] maxwidth, String tableName, List<String[]> table) {
+		StringBuffer buf = new StringBuffer();
+		buf.append("Table <code>");
+		buf.append(tableName);
+		buf.append("</code>");
+		buf.append("<table><thead><tr>");
+		for (int i = 0; i < ccount; ++i) {
+			buf.append("<th><code>");
+			buf.append(table.get(0)[i]);
+			buf.append("</code></th>");
+		}
+		buf.append("</tr></thead><tbody>");
+		for (int i = 1; i < table.size(); ++i) {
+			buf.append("<tr>");
+			for (int j = 0; j < ccount; ++j) {
+				String str = table.get(i)[j];
+				if (str == null) {
+					str = "<i>NULL</i>";
+				}
+				buf.append("<td><code>");
+				buf.append(str);
+				buf.append("</code></td>");
+			}
+			buf.append("</tr>");
+		}
+		buf.append("</tbody></table>");
+		return buf.toString();
+	}
+
+	public PrintStream getTableOutputStream() {
+		return tableOutputStream;
+	}
+
+	public void setTableOutputStream(PrintStream tableOutputStream) {
+		this.tableOutputStream = tableOutputStream;
+	}
+
+	public TableOutputType getTableOutputType() {
+		return tableOutputType;
+	}
+
+	public void setTableOutputType(TableOutputType tableOutputType) {
+		this.tableOutputType = tableOutputType;
 	}
 
 }

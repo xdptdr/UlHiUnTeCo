@@ -1,5 +1,7 @@
 package xdptdr.ulhiunteco.by;
 
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Test;
@@ -30,7 +32,8 @@ public class TestBY extends AbstractTest {
 			tx = session.beginTransaction();
 
 			ItemBY item = new ItemBY(itemName);
-//			item.getCollectionOfImages().add(new ImageBY(imageName, imageSize));
+			// item.getCollectionOfImages().add(new ImageBY(imageName,
+			// imageSize));
 			item.getListOfImageNames().add(imageName);
 			item.getMapOfImageNamesToDescriptions().put(imageName, imageDescription);
 			item.getSetOfImageNames().add(imageName);

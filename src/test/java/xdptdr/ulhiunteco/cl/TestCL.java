@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.cl;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -69,4 +72,14 @@ public class TestCL extends AbstractTest {
 		create();
 	}
 
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CL"));
+		tableOutputStream.println(dumpTable("ulhiunteco.BAR_CL"));
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_BAR_CL"));
+	}
 }

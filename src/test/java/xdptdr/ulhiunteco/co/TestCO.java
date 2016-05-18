@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.co;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -48,7 +51,7 @@ public class TestCO extends AbstractTest {
 			session.save(foo2);
 			session.save(bar1);
 			session.save(bar2);
-			
+
 			ZoiCO zoi11 = new ZoiCO(foo1, bar1, zoi11Data);
 			ZoiCO zoi12 = new ZoiCO(foo1, bar2, zoi12Data);
 			ZoiCO zoi21 = new ZoiCO(foo2, bar1, zoi21Data);
@@ -79,6 +82,17 @@ public class TestCO extends AbstractTest {
 	@Test
 	public void testCreate() {
 		create();
+	}
+
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CO"));
+		tableOutputStream.println(dumpTable("ulhiunteco.BAR_CO"));
+		tableOutputStream.println(dumpTable("ulhiunteco.ZOI_CO"));
 	}
 
 }

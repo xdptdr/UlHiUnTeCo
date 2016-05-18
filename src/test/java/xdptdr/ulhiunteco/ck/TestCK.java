@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.ck;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -65,6 +68,18 @@ public class TestCK extends AbstractTest {
 	@Test
 	public void testCreate() {
 		create();
+	}
+	
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CK"));
+		tableOutputStream.println(dumpTable("ulhiunteco.BAR_CK"));
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_BAR_CK"));
+		tableOutputStream.println(dumpTable("ulhiunteco.hibernate_unique_key"));
 	}
 
 }

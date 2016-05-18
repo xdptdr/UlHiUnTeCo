@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.ci;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -55,6 +58,17 @@ public class TestCI extends AbstractTest {
 	@Test
 	public void testCreate() {
 		create();
+	}
+	
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CI"));
+		tableOutputStream.println(dumpTable("ulhiunteco.BAR_CI"));
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_BAR_CI"));
 	}
 
 }

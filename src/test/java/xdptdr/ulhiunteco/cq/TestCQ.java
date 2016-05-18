@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.cq;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Test;
@@ -76,5 +79,18 @@ public class TestCQ extends AbstractTest {
 	public void testCreate() {
 		create();
 	}
+	
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CQ"));
+		tableOutputStream.println(dumpTable("ulhiunteco.BAR_CQ"));
+		tableOutputStream.println(dumpTable("ulhiunteco.FOO_CQ_BAR_CQ"));
+	}
+	
+	
 
 }
