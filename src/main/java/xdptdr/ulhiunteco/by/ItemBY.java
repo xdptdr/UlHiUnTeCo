@@ -1,7 +1,6 @@
 package xdptdr.ulhiunteco.by;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -22,10 +21,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.ListIndexBase;
 import org.hibernate.annotations.SortNatural;
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "ITEM_BY")

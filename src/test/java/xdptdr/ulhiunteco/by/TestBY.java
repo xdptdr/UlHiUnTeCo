@@ -1,7 +1,5 @@
 package xdptdr.ulhiunteco.by;
 
-import java.sql.SQLException;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Test;

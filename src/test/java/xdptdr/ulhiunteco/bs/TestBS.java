@@ -1,7 +1,5 @@
 package xdptdr.ulhiunteco.bs;
 
-import javax.persistence.GenerationType;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;

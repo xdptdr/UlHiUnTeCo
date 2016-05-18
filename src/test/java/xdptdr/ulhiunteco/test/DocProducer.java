@@ -11,7 +11,7 @@ public class DocProducer {
 
 	public static void main(String[] args) {
 
-		String[] testCodes = new String[] { "CC", "CE", "CF", "CG", "CH", "CI", "CJ", "CK", "CL", "CM", "CN", "CO",
+		String[] testCodes = new String[] { "BE", "BF", "CC", "CD", "CE", "CF", "CG", "CH", "CI", "CJ", "CK", "CL", "CM", "CN", "CO",
 				"CP", "CQ", "CR" };
 
 		for (String testCode : testCodes) {

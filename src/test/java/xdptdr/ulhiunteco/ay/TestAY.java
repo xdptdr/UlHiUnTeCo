@@ -1,8 +1,5 @@
 package xdptdr.ulhiunteco.ay;
 
-import java.util.List;
-
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;

@@ -7,28 +7,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER_ON_FIELDS_BF")
-public class UserOnFieldsBF {
+@Table(name = "FOO_ON_GETTERS_BF")
+public class FooOnGettersBF {
 
-	@Id
-	@GeneratedValue
-	@Column(name = "ID")
 	private Long id;
 
-	@Column(name = "NAME")
 	private String name;
 
-	@Column(name = "PREFIX")
 	private String valuePrefix;
 
-	public UserOnFieldsBF() {
+	public FooOnGettersBF() {
 	}
 
-	public UserOnFieldsBF(String name, String prefix) {
+	public FooOnGettersBF(String name, String prefix) {
 		this.name = name;
 		this.valuePrefix = prefix;
 	}
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	public Long getId() {
 		return id;
 	}
@@ -37,6 +35,7 @@ public class UserOnFieldsBF {
 		this.id = id;
 	}
 
+	@Column(name = "NAME")
 	public String getName() {
 		return valuePrefix + name;
 	}
@@ -45,6 +44,7 @@ public class UserOnFieldsBF {
 		this.name = name;
 	}
 
+	@Column(name = "PREFIX")
 	public String getValuePrefix() {
 		return valuePrefix;
 	}
