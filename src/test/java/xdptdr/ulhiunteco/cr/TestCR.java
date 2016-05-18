@@ -1,5 +1,7 @@
 package xdptdr.ulhiunteco.cr;
 
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -44,10 +46,9 @@ public class TestCR extends AbstractTest {
 
 			ZoiCR zoi1 = new ZoiCR(zoi1Name);
 			ZoiCR zoi2 = new ZoiCR(zoi2Name);
-			
+
 			BarCR bar1 = new BarCR(bar1Name);
 			BarCR bar2 = new BarCR(bar2Name);
-
 
 			foo1.addZoiBar(zoi1, bar1);
 			foo1.addZoiBar(zoi2, bar2);
@@ -74,17 +75,29 @@ public class TestCR extends AbstractTest {
 			}
 		}
 
-		 Assert.assertNotNull(foo1Id);
-		 Assert.assertNotNull(foo2Id);
-		 Assert.assertNotNull(zoi1Id);
-		 Assert.assertNotNull(zoi2Id);
-		 Assert.assertNotNull(bar1Id);
-		 Assert.assertNotNull(bar2Id);
+		Assert.assertNotNull(foo1Id);
+		Assert.assertNotNull(foo2Id);
+		Assert.assertNotNull(zoi1Id);
+		Assert.assertNotNull(zoi2Id);
+		Assert.assertNotNull(bar1Id);
+		Assert.assertNotNull(bar2Id);
 	}
 
 	@Test
 	public void testCreate() {
 		create();
+	}
+
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		System.out.println(dumpTable("ulhiunteco.FOO_CR"));
+		System.out.println(dumpTable("ulhiunteco.BAR_CR"));
+		System.out.println(dumpTable("ulhiunteco.ZOI_CR"));
+		System.out.println(dumpTable("ulhiunteco.FOO_ZOI_BAR_CR"));
+		System.out.println(this.getClass().getCanonicalName());
 	}
 
 }

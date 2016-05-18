@@ -2,6 +2,13 @@ package xdptdr.ulhiunteco.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.hibernate.SessionFactory;
@@ -73,6 +80,8 @@ public class AbstractTest {
 
 	private Type type;
 
+	private Configuration configuration;
+
 	public AbstractTest(Class<?>[] entityClasses) {
 		this.classes = entityClasses;
 	}
@@ -80,7 +89,7 @@ public class AbstractTest {
 	@Before
 	public void setUp() {
 
-		Configuration configuration = new Configuration();
+		configuration = new Configuration();
 		configuration.setProperty("hibernate.hbm2ddl.auto", "create");
 		loadUserProperties(configuration);
 		if (classes != null) {
@@ -268,4 +277,91 @@ public class AbstractTest {
 	public Type getType() {
 		return type;
 	}
+
+	private Connection getJDBCConnection() throws SQLException {
+		switch (type) {
+		case MYSQL: {
+			String url = configuration.getProperty("hibernate.connection.url");
+			return DriverManager.getConnection(url, null, null);
+		}
+		default:
+			return null;
+		}
+	}
+
+	public String dumpTable(String tableName) throws SQLException {
+		{
+			Connection connection = getJDBCConnection();
+			PreparedStatement ps = connection.prepareStatement("select * from " + tableName);
+			ResultSet result = ps.executeQuery();
+			int ccount = result.getMetaData().getColumnCount();
+			List<String[]> table = new ArrayList<String[]>();
+
+			String[] headers = new String[ccount];
+			for (int i = 1; i <= ccount; ++i) {
+				String name = result.getMetaData().getColumnName(i);
+				String type = result.getMetaData().getColumnTypeName(i);
+				headers[i - 1] = name + " [" + type + "]";
+
+			}
+			table.add(headers);
+			while (result.next()) {
+				String[] data = new String[ccount];
+				for (int i = 1; i <= ccount; ++i) {
+					data[i - 1] = result.getString(i);
+
+				}
+				table.add(data);
+			}
+
+			long[] maxwidth = new long[ccount];
+
+			for (int j = 0; j < ccount; ++j) {
+				for (int i = 0; i < table.size(); ++i) {
+					if (maxwidth[j] < table.get(i)[j].length()) {
+						maxwidth[j] = table.get(i)[j].length();
+					}
+				}
+			}
+
+			StringBuffer seplinebuf = new StringBuffer();
+			for (int j = 0; j < ccount; ++j) {
+				if (j == 0) {
+					seplinebuf.append("+");
+				}
+				seplinebuf.append("-");
+				for (int k = 0; k < maxwidth[j]; ++k) {
+					seplinebuf.append("-");
+				}
+				seplinebuf.append("-+");
+			}
+			seplinebuf.append("\n");
+
+			String sepline = seplinebuf.toString();
+
+			StringBuffer buf = new StringBuffer();
+			for (int i = 0; i < table.size(); ++i) {
+				if (i <= 1) {
+					buf.append(sepline);
+				}
+				for (int j = 0; j < ccount; ++j) {
+					String str = table.get(i)[j];
+					if (j == 0) {
+						buf.append("|");
+					}
+					buf.append(" ");
+					buf.append(str);
+					for (int k = str.length(); k < maxwidth[j]; ++k) {
+						buf.append(" ");
+					}
+					buf.append(" |");
+				}
+				buf.append("\n");
+			}
+			buf.append(sepline);
+			return buf.toString();
+		}
+
+	}
+
 }
