@@ -1,5 +1,7 @@
 package xdptdr.ulhiunteco.bj;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -123,4 +125,12 @@ public class TestBJ extends AbstractTest {
 
 	}
 
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.NAMED_ITEM_BJ"));
+	}
 }

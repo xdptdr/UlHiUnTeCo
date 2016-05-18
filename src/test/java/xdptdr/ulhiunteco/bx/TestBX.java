@@ -1,5 +1,8 @@
 package xdptdr.ulhiunteco.bx;
 
+import java.io.PrintStream;
+import java.sql.SQLException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Assert;
@@ -19,7 +22,7 @@ public class TestBX extends AbstractTest {
 	private Integer countryPopulation = 7;
 	private String moleculeName = "moleculeName";
 	private Integer moleculeMolarMass = 314;
-	
+
 	private Long parameterId;
 	private Long countryId;
 	private Long moleculeId;
@@ -64,6 +67,17 @@ public class TestBX extends AbstractTest {
 	@Test
 	public void testCreate() {
 		create();
+	}
+
+	@Test
+	public void dumpTables() throws SQLException {
+
+		create();
+
+		PrintStream tableOutputStream = getTableOutputStream();
+		tableOutputStream.println(dumpTable("ulhiunteco.NAMED_ITEM_BX"));
+		tableOutputStream.println(dumpTable("ulhiunteco.MOLECULE_BX"));
+		tableOutputStream.println(dumpTable("ulhiunteco.hibernate_sequences"));
 	}
 
 }

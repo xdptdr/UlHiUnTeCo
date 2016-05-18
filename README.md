@@ -41,6 +41,16 @@ Index of tests:
   * [FooBE](src/main/java/xdptdr/ulhiunteco/be/FooBE.java)
 * [BF](src/test/java/xdptdr/ulhiunteco/be/TestBF.java) : Difference between annotations on fields and annotations on getters, with query unit test
   * [Generated tables](doc/tables/TablesBF.md)
-  * [FooOnGettersBE](src/main/java/xdptdr/ulhiunteco/be/FooOnGettersBE.java)
-  * [FooOnFieldsBE](src/main/java/xdptdr/ulhiunteco/be/FooOnFieldsBE.java)
-  
+  * [FooOnGettersBE](src/main/java/xdptdr/ulhiunteco/bf/FooOnGettersBE.java)
+  * [FooOnFieldsBE](src/main/java/xdptdr/ulhiunteco/bf/FooOnFieldsBE.java)
+* [BJ](src/test/java/xdptdr/ulhiunteco/be/TestBJ.java) : Single table inheritance
+  * [Generated tables](doc/tables/TablesBJ.md)
+  * [CountryBJ](src/main/java/xdptdr/ulhiunteco/bj/CountryBJ.java)
+  * [NamedItemBJ](src/main/java/xdptdr/ulhiunteco/bj/NamedItemBJ.java)
+  * [ParameterBJ](src/main/java/xdptdr/ulhiunteco/bj/ParameterBJ.java)
+* [BX](src/test/java/xdptdr/ulhiunteco/bx/TestBX.java) : Single table inheritance with a dedicated table for one subclass
+  * [Generated tables](doc/tables/TablesBX.md)
+  * [CountryBX](src/main/java/xdptdr/ulhiunteco/bx/CountryBX.java)
+  * [NamedItemBX](src/main/java/xdptdr/ulhiunteco/bx/NamedItemBX.java)
+  * [ParameterBX](src/main/java/xdptdr/ulhiunteco/bx/ParameterBX.java)
+  * [MoleculeBX](src/main/java/xdptdr/ulhiunteco/bx/MoleculeBX.java)

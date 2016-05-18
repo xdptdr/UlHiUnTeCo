@@ -90,15 +90,21 @@ public class AbstractTest {
 	private PrintStream tableOutputStream = System.out;
 	private TableOutputType tableOutputType = TableOutputType.CONSOLE;
 
+	private String hbm2ddlAuto = "create";
+
 	public AbstractTest(Class<?>[] entityClasses) {
 		this.classes = entityClasses;
+	}
+
+	public void setHbm2ddlAuto(String hbm2ddlAuto) {
+		this.hbm2ddlAuto = hbm2ddlAuto;
 	}
 
 	@Before
 	public void setUp() {
 
 		configuration = new Configuration();
-		configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+		configuration.setProperty("hibernate.hbm2ddl.auto", hbm2ddlAuto);
 		loadUserProperties(configuration);
 		if (classes != null) {
 			for (Class<?> entityClass : classes) {
