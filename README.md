@@ -37,7 +37,7 @@ Index of tests:
   * [CourseAZ](src/main/java/xdptdr/ulhiunteco/az/CourseAZ.java)
   * [DayAZ](src/main/java/xdptdr/ulhiunteco/az/DayAZ.java)
   * [MeetsAZ](src/main/java/xdptdr/ulhiunteco/az/MeetsAZ.java)
-* [BA](src/test/java/xdptdr/ulhiunteco/ba/TestBA.java) : Unconstrained Manager-Subordinate relationshiop with some of the crazy possibilities
+* [BA](src/test/java/xdptdr/ulhiunteco/ba/TestBA.java) : Unconstrained Manager-Subordinate relationship with some of the crazy possibilities
   * [EmployeeBA](src/main/java/xdptdr/ulhiunteco/ba/EmployeeBA.java)
   * [ManagesBA](src/main/java/xdptdr/ulhiunteco/ba/ManagesBA.java) 
 * [BE](src/test/java/xdptdr/ulhiunteco/be/TestBE.java) : Entity with private id accessed using session.getIdentifier()

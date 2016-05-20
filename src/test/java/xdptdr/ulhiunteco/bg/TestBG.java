@@ -40,16 +40,16 @@ public class TestBG extends AbstractTest {
 
 	@Override
 	protected void customizeSetup(Configuration configuration) {
-		Type type = getType();
+		DBType type = getType();
 
-		if (type == Type.MYSQL) {
+		if (type == DBType.MYSQL) {
 			configuration.addAnnotatedClass(UserIdentityBF.class);
 			configuration.addAnnotatedClass(UserIncrementBF.class);
 			configuration.addAnnotatedClass(UserTableBF.class);
 			configuration.addAnnotatedClass(UserHiloBF.class);
 			configuration.addAnnotatedClass(UserSeqHiloBF.class);
 		}
-		if (type == Type.IMPOSSIBLE) {
+		if (type == DBType.IMPOSSIBLE) {
 			configuration.addAnnotatedClass(UserSequenceBF.class);
 			configuration.addAnnotatedClass(UserSelectBF.class);
 			configuration.addAnnotatedClass(UserGUIDBF.class);
@@ -60,7 +60,7 @@ public class TestBG extends AbstractTest {
 
 	private void create() {
 
-		Type type = getType();
+		DBType type = getType();
 
 		Session session = null;
 		Transaction tx = null;
@@ -78,42 +78,42 @@ public class TestBG extends AbstractTest {
 			UserGUIDBF userGUID = null;
 			UserUUIDHexBF userUUIDHex = null;
 
-			if (type == Type.MYSQL) {
+			if (type == DBType.MYSQL) {
 				userIdentity = new UserIdentityBF(userIdentityName);
 				userIncrement = new UserIncrementBF(userIncrementName);
 				userTable = new UserTableBF(userTableName);
 				userHilo = new UserHiloBF(userHiloName);
 				userSeqHilo = new UserSeqHiloBF(userSeqHiloName);
 			}
-			if (type == Type.IMPOSSIBLE) {
+			if (type == DBType.IMPOSSIBLE) {
 				userSequence = new UserSequenceBF(userSequenceName);
 				userSelect = new UserSelectBF(userSelectName);
 				userGUID = new UserGUIDBF(userGUIDName);
 				userUUIDHex = new UserUUIDHexBF(userUUIDHexName);
 			}
 
-			if (type == Type.MYSQL) {
+			if (type == DBType.MYSQL) {
 				session.save(userIdentity);
 				session.save(userIncrement);
 				session.save(userTable);
 				session.save(userHilo);
 				session.save(userSeqHilo);
 			}
-			if (type == Type.IMPOSSIBLE) {
+			if (type == DBType.IMPOSSIBLE) {
 				session.save(userSequence);
 				session.save(userSelect);
 				session.save(userGUID);
 				session.save(userUUIDHex);
 			}
 
-			if (type == Type.MYSQL) {
+			if (type == DBType.MYSQL) {
 				userIdentityId = (Long) session.getIdentifier(userIdentity);
 				userIncrementId = (Long) session.getIdentifier(userIncrement);
 				userTableId = (Long) session.getIdentifier(userTable);
 				userHiloId = (Long) session.getIdentifier(userHilo);
 				userSeqHiloId = (Long) session.getIdentifier(userSeqHilo);
 			}
-			if (type == Type.IMPOSSIBLE) {
+			if (type == DBType.IMPOSSIBLE) {
 				userSequenceId = (Long) session.getIdentifier(userSequence);
 				userSelectId = (Long) session.getIdentifier(userSelect);
 				userGUIDId = (Long) session.getIdentifier(userGUID);
@@ -126,14 +126,14 @@ public class TestBG extends AbstractTest {
 			}
 		}
 
-		if (type == Type.MYSQL) {
+		if (type == DBType.MYSQL) {
 			Assert.assertNotNull(userIdentityId);
 			Assert.assertNotNull(userIncrementId);
 			Assert.assertNotNull(userTableId);
 			Assert.assertNotNull(userHiloId);
 			Assert.assertNotNull(userSeqHiloId);
 		}
-		if (type == Type.IMPOSSIBLE) {
+		if (type == DBType.IMPOSSIBLE) {
 			Assert.assertNotNull(userSequenceId);
 			Assert.assertNotNull(userSelectId);
 			Assert.assertNotNull(userGUIDId);

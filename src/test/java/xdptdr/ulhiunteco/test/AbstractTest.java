@@ -21,7 +21,7 @@ import org.junit.Before;
 
 public class AbstractTest {
 
-	public static enum Type {
+	public static enum DBType {
 		HSQL, MYSQL, SQLSERVER, IMPOSSIBLE
 	}
 
@@ -83,7 +83,7 @@ public class AbstractTest {
 	private Class<?>[] classes;
 	private SessionFactory sessionFactory;
 
-	private Type type;
+	private DBType type;
 
 	private Configuration configuration;
 
@@ -138,7 +138,7 @@ public class AbstractTest {
 			Properties ulhiuntecoProperties = new Properties();
 			ulhiuntecoProperties.load(ras);
 
-			type = Type.valueOf(ulhiuntecoProperties.getProperty(PROPERTY_KEY_TYPE).trim().toUpperCase());
+			type = DBType.valueOf(ulhiuntecoProperties.getProperty(PROPERTY_KEY_TYPE).trim().toUpperCase());
 
 			switch (type) {
 			case HSQL: {
@@ -288,7 +288,7 @@ public class AbstractTest {
 		return sessionFactory;
 	}
 
-	public Type getType() {
+	public DBType getType() {
 		return type;
 	}
 
